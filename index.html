@@ -174,6 +174,15 @@
     .cal-day.today{outline:2px solid var(--blue);outline-offset:1px}
     .cal-num{font-family:var(--mono);font-size:10px;color:var(--muted)}
     .cal-badge{display:inline-flex;width:18px;height:18px;border-radius:999px;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:9px}
+    .cal-day-bottom{display:flex;align-items:center;justify-content:space-between;gap:4px}
+    .cal-marks{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}
+    .cal-mark{width:8px;height:8px;border-radius:999px;display:inline-block;border:1px solid rgba(13,13,13,.5)}
+    .cal-mark.strength{background:#2154ff}
+    .cal-mark.plyo{background:#caff35}
+    .cal-mark.ankle{background:#ff8a00}
+    .cal-mark.shoulder{background:#9b5cff}
+    .cal-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:-.05em;color:var(--muted)}
+    .cal-legend span{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:6px 8px;background:rgba(255,253,246,.35)}
     .summary-stack{display:grid;gap:10px}
     .summary-card{border:1px solid var(--line-strong);border-radius:18px;padding:14px;background:rgba(255,253,246,.38);display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
     .summary-card b{font-family:var(--display);font-size:36px;letter-spacing:-.07em;line-height:.8}
@@ -219,6 +228,26 @@
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .notice{border:1px solid var(--line-strong);border-radius:18px;padding:14px;background:var(--lime-soft);font-size:13px;line-height:1.35;color:#2b2a25}
     .empty-state{border:1px dashed var(--line-strong);border-radius:18px;padding:18px;text-align:center;color:var(--muted);font-size:14px}
+    .diet-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.45fr);gap:12px;margin-bottom:18px}
+    .diet-callout{border:1px solid var(--line-strong);border-radius:20px;background:var(--lime-soft);padding:16px;line-height:1.35}
+    .diet-callout strong{font-family:var(--display);font-size:32px;text-transform:uppercase;letter-spacing:-.06em;display:block;line-height:.9;margin-bottom:8px}
+    .diet-tables{display:grid;gap:18px}
+    .diet-section{border:1px solid var(--line-strong);border-radius:24px;background:rgba(255,253,246,.45);overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.045)}
+    .diet-section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;border-bottom:1px solid var(--line-strong);padding:16px 18px;background:rgba(255,253,246,.32)}
+    .diet-section-head h3{font-size:34px}
+    .diet-section-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.35;max-width:520px}
+    .diet-table-wrap{overflow:auto}
+    .diet-table{width:100%;border-collapse:collapse;min-width:680px}
+    .diet-table th,.diet-table td{border-bottom:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;font-size:13px;line-height:1.3}
+    .diet-table th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:-.05em;color:var(--muted);background:rgba(255,253,246,.38)}
+    .diet-table td:nth-child(n+2),.diet-table th:nth-child(n+2){text-align:right}
+    .diet-table td:last-child,.diet-table th:last-child{text-align:left}
+    .diet-table strong{font-weight:800}
+    .ratio{font-weight:800;background:var(--lime-soft);border-radius:999px;padding:3px 8px;white-space:nowrap}
+    .winner-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .winner-card{border:1px solid var(--line-strong);border-radius:20px;background:rgba(255,253,246,.5);padding:16px}
+    .winner-card h3{font-size:34px;margin-bottom:10px}
+    .winner-card p{margin:0;color:#36342e;line-height:1.35}
     .mobile-program{display:none}
     @media (max-width: 980px){
       .topbar-inner{grid-template-columns:auto auto;justify-content:space-between}.mini-nav{grid-column:1/-1;justify-content:flex-start;overflow:auto;padding-bottom:10px}.join-pill{display:none}
@@ -238,9 +267,11 @@
         <a href="#track" data-nav="track">Track</a>
         <a href="#plan" data-nav="plan">Plan</a>
         <a href="#tournament" data-nav="tournament">Tournament</a>
+        <a href="#plyometrics" data-nav="plyometrics">Plyometrics</a>
         <a href="#drills" data-nav="drills">Drills</a>
         <a href="#warmups" data-nav="warmups">Warmups</a>
         <a href="#workouts" data-nav="workouts">Workouts</a>
+        <a href="#diet" data-nav="diet">Diet</a>
       </nav>
       <a class="join-pill" href="#track"><span class="dot"></span> Log today</a>
     </div>
@@ -278,9 +309,11 @@
       <nav class="program-strip" aria-label="Program sections">
         <a class="program-row" href="#track"><span class="program-title">Track</span><span class="program-meta">Daily check-in, hydration, multi-select activity log, progress calendar.</span><span class="program-arrow">→</span></a>
         <a class="program-row" href="#plan"><span class="program-title">Plan</span><span class="program-meta">Weekly plan, skill emphasis and tournament taper without panic-rearranging your entire life.</span><span class="program-arrow">→</span></a>
+        <a class="program-row" href="#plyometrics"><span class="program-title">Plyometrics</span><span class="program-meta">Vertical jump drills, simple A/B plyo sessions and landing-quality rules.</span><span class="program-arrow">→</span></a>
         <a class="program-row" href="#drills"><span class="program-title">Drills</span><span class="program-meta">Skill-set filters for passing, defense, serving, attack, ball control and game situations.</span><span class="program-arrow">→</span></a>
         <a class="program-row" href="#warmups"><span class="program-title">Warmups</span><span class="program-meta">Sand-ready prep, shoulder care, hip mobility and diving-safe landing habits.</span><span class="program-arrow">→</span></a>
         <a class="program-row" href="#workouts"><span class="program-title">Workouts</span><span class="program-meta">Jump, endurance and durability sessions with direct links to exercise references.</span><span class="program-arrow">→</span></a>
+        <a class="program-row" href="#diet"><span class="program-title">Diet</span><span class="program-meta">High-protein food tables with calories and protein-efficiency ratios.</span><span class="program-arrow">→</span></a>
       </nav>
 
       <div class="section-head">
@@ -317,6 +350,8 @@
                 <div class="activity-heading">Beach Volleyball</div>
                 <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Strength A">Strength A</label>
                 <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Strength B">Strength B</label>
+                <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Plyometrics Workout A">Plyometrics Workout A</label>
+                <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Plyometrics Workout B">Plyometrics Workout B</label>
                 <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — 2v2 games">2v2 games</label>
                 <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Drills">Drills</label>
                 <label class="choice"><input type="checkbox" name="activities" value="Beach Volleyball — Casual 3v3 / 4v4">Casual 3v3 / 4v4</label>
@@ -352,6 +387,12 @@
           <div class="summary-stack" id="summaryCards"></div>
           <div style="height:16px"></div>
           <div class="calendar" id="calendar"></div>
+          <div class="cal-legend" aria-label="Calendar color legend">
+            <span><i class="cal-mark strength"></i>Strength</span>
+            <span><i class="cal-mark plyo"></i>Plyometrics</span>
+            <span><i class="cal-mark ankle"></i>Ankle Prehab</span>
+            <span><i class="cal-mark shoulder"></i>Shoulder Prehab</span>
+          </div>
         </aside>
       </div>
     </section>
@@ -399,6 +440,73 @@
       <div class="warm-grid">
         <article class="warm-card"><h3>Warm-Up</h3><ul><li>5 min light jog/shuffle.</li><li>Dynamic hips, ankles, shoulders.</li><li>2 rounds: 10 pogo hops.</li><li>6 lateral shuffles each way.</li><li>5 approach jumps, gradually building.</li><li>5 serve-receive passes.</li><li>5 controlled defensive moves into platform.</li></ul></article>
         <article class="warm-card"><h3>Between Games</h3><ul><li>Sip fluids regularly.</li><li>Eat small carbs: banana, sports drink, bread, rice ball, energy bar.</li><li>Stay out of the sun where possible.</li><li>Keep shoulders warm, not stiff.</li></ul></article>
+      </div>
+    </section>
+
+
+    <section class="page" data-page="plyometrics" aria-labelledby="plyometrics-title">
+      <div class="page-hero">
+        <div><p class="eyebrow"><span class="dot"></span> Vertical jump power</p><h2 id="plyometrics-title">Plyometrics</h2><p>Solid plyometric drills for improving vertical jump. Do them 2–3 times per week, with at least 48 hours between sessions. Quality matters more than volume — jump like a spring, not like a tired shopping cart.</p></div>
+        <span class="route-chip">2–3× weekly</span>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><h3>Warm-Up First</h3><span class="micro">8–10 minutes</span></div>
+        <p>Jog or skip lightly, then do leg swings, lunges, high knees, ankle hops, and a few easy practice jumps.</p>
+      </div>
+
+      <div class="section-head">
+        <h2>Simple Vertical Jump Workout</h2>
+        <p>Alternate Workout A and Workout B across the week. Each exercise includes the quick “what to do” reminder, because plyos done on autopilot are just noisy knee negotiations.</p>
+      </div>
+      <div class="warm-grid">
+        <article class="workout-card">
+          <h3>Workout A</h3>
+          <p>Use this session when you want a clean jump-power day with forward power, vertical power and ankle stiffness.</p>
+          <ul>
+            <li><strong>Squat jumps — 3×6:</strong> Start in an athletic stance, dip down, then jump straight up as high as possible. Land softly and reset every rep.</li>
+            <li><strong>Box jumps — 3×4:</strong> Jump onto a sturdy box or platform. Step down instead of repeatedly jumping down.</li>
+            <li><strong>Broad jumps — 3×5:</strong> Jump forward as far as you can and stick the landing with hips back and knees controlled.</li>
+            <li><strong>Pogo jumps — 3×20 seconds:</strong> Keep knees fairly straight and bounce using mostly ankles and calves with quick, light contacts.</li>
+          </ul>
+        </article>
+        <article class="workout-card">
+          <h3>Workout B</h3>
+          <p>Use this session for reactive jump mechanics, landing control and elastic bounce.</p>
+          <ul>
+            <li><strong>Countermovement jumps — 3×5:</strong> Stand tall, quickly dip, swing your arms, and jump as high as possible.</li>
+            <li><strong>Depth drops — 3×5:</strong> Step off a low box, land softly, and absorb the force. Start low, around 20–30 cm.</li>
+            <li><strong>Tuck jumps — 2×5:</strong> Jump up and bring your knees toward your chest. Land softly and pause before the next rep.</li>
+            <li><strong>Pogo jumps — 3×20 seconds:</strong> Bounce through the ankles and calves while keeping contacts fast, quiet and springy.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="section-head">
+        <h2>Best Plyometric Drills</h2>
+        <p>Keep reps crisp and stop before landings get sloppy. Plyos are a power tool, not a cardio punishment device.</p>
+      </div>
+
+      <div class="warm-grid">
+        <article class="workout-card"><h3>Squat Jumps</h3><p>Start in an athletic stance, dip down, then jump straight up as high as possible. Land softly and reset.</p><ul><li><strong>Do:</strong> 3 sets of 5–8 reps</li><li><strong>Focus:</strong> Explosive takeoff, quiet landing.</li></ul></article>
+        <article class="workout-card"><h3>Countermovement Jumps</h3><p>Stand tall, quickly dip, swing your arms, and jump as high as possible.</p><ul><li><strong>Do:</strong> 3 sets of 4–6 reps</li><li><strong>Focus:</strong> Fast dip, powerful arm swing.</li></ul></article>
+        <article class="workout-card"><h3>Tuck Jumps</h3><p>Jump up and bring your knees toward your chest. Land softly and pause before the next rep.</p><ul><li><strong>Do:</strong> 2–3 sets of 4–6 reps</li><li><strong>Focus:</strong> Don’t rush. Bad tuck jumps become chaos with knees.</li></ul></article>
+        <article class="workout-card"><h3>Box Jumps</h3><p>Jump onto a sturdy box or platform. Step down; don’t jump down repeatedly.</p><ul><li><strong>Do:</strong> 3 sets of 3–5 reps</li><li><strong>Focus:</strong> Explosive jump, safe landing.</li></ul></article>
+        <article class="workout-card"><h3>Depth Drops</h3><p>Step off a low box, land softly, and absorb the force. This teaches landing control.</p><ul><li><strong>Do:</strong> 2–3 sets of 4–6 reps</li><li><strong>Box height:</strong> Start low, around 20–30 cm.</li></ul></article>
+        <article class="workout-card"><h3>Depth Jumps</h3><p>Step off a low box, land, then immediately jump upward.</p><ul><li><strong>Do:</strong> 2–3 sets of 3–5 reps</li><li><strong>Use only after:</strong> You can land well from depth drops.</li><li><strong>Focus:</strong> Quick ground contact, tall jump.</li></ul></article>
+        <article class="workout-card"><h3>Broad Jumps</h3><p>Jump forward as far as you can and stick the landing.</p><ul><li><strong>Do:</strong> 3 sets of 4–6 reps</li><li><strong>Focus:</strong> Hip power and landing stability.</li></ul></article>
+        <article class="workout-card"><h3>Pogo Jumps</h3><p>Keep knees fairly straight and bounce using mostly ankles and calves.</p><ul><li><strong>Do:</strong> 3 sets of 15–25 seconds</li><li><strong>Focus:</strong> Quick, light contacts.</li></ul></article>
+      </div>
+
+      <div class="panel" style="margin-top:18px">
+        <div class="panel-title"><h3>Key Tips</h3><span class="micro">Jump quality rules</span></div>
+        <ul>
+          <li>Rest 60–120 seconds between sets so every jump is explosive.</li>
+          <li>Stop if your jumps get noticeably lower or your landings get sloppy.</li>
+          <li>Land with knees tracking over toes, hips back, chest up, and feet quiet.</li>
+          <li>For the biggest vertical jump gains, combine plyos with strength work like squats, lunges, Romanian deadlifts, calf raises, and core training.</li>
+          <li>Plyos teach you to use power; strength gives you more power to use.</li>
+        </ul>
       </div>
     </section>
 
@@ -514,6 +622,153 @@
       </div>
     </section>
 
+
+    <section class="page" data-page="diet" aria-labelledby="diet-title">
+      <div class="page-hero">
+        <div><p class="eyebrow"><span class="dot"></span> Protein fuel guide</p><h2 id="diet-title">Diet</h2><p>High-protein food options with calories and protein-efficiency ratios. Use this as a practical pick-list for training days, recovery meals and “what should I eat that isn’t just vibes with sauce?” moments.</p></div>
+        <span class="route-chip">Protein per 100 kcal</span>
+      </div>
+
+      <div class="diet-intro">
+        <div class="panel">
+          <div class="panel-title"><h3>How To Read This</h3><span class="micro">Protein efficiency</span></div>
+          <p><strong>Protein/calorie ratio = grams of protein per 100 kcal.</strong> Higher means more protein-efficient. Around <strong>20g protein per 100 kcal</strong> is very lean; around <strong>3–5g per 100 kcal</strong> is more calorie-dense.</p>
+        </div>
+        <div class="diet-callout">
+          <strong>Quick note</strong>
+          Saba and Batang are separated here: Saba / Japanese mackerel is oilier and richer, while Batang / Spanish mackerel is typically firmer and leaner.
+        </div>
+      </div>
+
+      <div class="diet-tables">
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Seafood and Fish</h3><p>Batang is treated separately from Saba because it is usually leaner and more protein-efficient.</p></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Tuna</strong></td><td>25–30g</td><td>110–160 kcal</td><td><span class="ratio">20.4g</span></td><td>Very high protein, lean if in water</td></tr><tr><td><strong>Cod</strong></td><td>22–24g</td><td>90–110 kcal</td><td><span class="ratio">23.0g</span></td><td>Very lean white fish</td></tr><tr><td><strong>Grouper</strong></td><td>22–24g</td><td>100–130 kcal</td><td><span class="ratio">20.0g</span></td><td>Lean, firm white fish</td></tr><tr><td><strong>Salmon</strong></td><td>20–25g</td><td>180–230 kcal</td><td><span class="ratio">11.0g</span></td><td>Higher fat, omega-3 rich</td></tr><tr><td><strong>Saba / Japanese mackerel</strong></td><td>19–23g</td><td>200–260 kcal</td><td><span class="ratio">9.1g</span></td><td>Oily, rich, higher-calorie mackerel</td></tr><tr><td><strong>Batang / Spanish mackerel</strong></td><td>19–24g</td><td>135–170 kcal</td><td><span class="ratio">13.9g</span></td><td>Firmer, leaner than saba; common in sliced fish soup</td></tr><tr><td><strong>Sardine</strong></td><td>20–25g</td><td>180–220 kcal</td><td><span class="ratio">11.3g</span></td><td>Protein + healthy fats; calcium if bones are eaten</td></tr><tr><td><strong>Dory / Pangasius</strong></td><td>15–18g</td><td>90–130 kcal</td><td><span class="ratio">15.0g</span></td><td>Lower protein than cod/grouper but still decent</td></tr><tr><td><strong>Unagi</strong></td><td>17–20g</td><td>250–320 kcal</td><td><span class="ratio">6.5g</span></td><td>Higher calories, often with sweet sauce</td></tr><tr><td><strong>Stingray</strong></td><td>20–23g</td><td>100–140 kcal</td><td><span class="ratio">17.9g</span></td><td>Lean protein</td></tr><tr><td><strong>Squid</strong></td><td>15–18g</td><td>90–120 kcal</td><td><span class="ratio">15.7g</span></td><td>Lean unless fried</td></tr><tr><td><strong>Prawn / Shrimp</strong></td><td>20–24g</td><td>90–120 kcal</td><td><span class="ratio">21.0g</span></td><td>Very lean, high protein</td></tr><tr><td><strong>Oysters</strong></td><td>8–12g</td><td>70–100 kcal</td><td><span class="ratio">11.8g</span></td><td>Lower protein, rich in minerals</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Chicken</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Chicken breast, skinless</strong></td><td>30–32g</td><td>160–180 kcal</td><td><span class="ratio">18.2g</span></td></tr><tr><td><strong>Chicken thigh, skinless</strong></td><td>24–27g</td><td>180–220 kcal</td><td><span class="ratio">12.8g</span></td></tr><tr><td><strong>Chicken drumstick, skinless</strong></td><td>24–27g</td><td>170–210 kcal</td><td><span class="ratio">13.4g</span></td></tr><tr><td><strong>Chicken wing</strong></td><td>20–24g</td><td>250–320 kcal</td><td><span class="ratio">7.7g</span></td></tr><tr><td><strong>Chicken liver</strong></td><td>24–26g</td><td>160–180 kcal</td><td><span class="ratio">14.7g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Pork</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Pork tenderloin</strong></td><td>26–28g</td><td>140–170 kcal</td><td><span class="ratio">17.4g</span></td></tr><tr><td><strong>Pork loin chop</strong></td><td>25–27g</td><td>180–230 kcal</td><td><span class="ratio">12.7g</span></td></tr><tr><td><strong>Pork shoulder / collar</strong></td><td>20–24g</td><td>250–320 kcal</td><td><span class="ratio">7.7g</span></td></tr><tr><td><strong>Minced pork</strong></td><td>18–25g</td><td>250–350 kcal</td><td><span class="ratio">7.2g</span></td></tr><tr><td><strong>Pork belly</strong></td><td>9–15g</td><td>450–550 kcal</td><td><span class="ratio">2.4g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Beef</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Beef sirloin</strong></td><td>26–29g</td><td>200–260 kcal</td><td><span class="ratio">12.0g</span></td></tr><tr><td><strong>Beef tenderloin</strong></td><td>25–28g</td><td>180–240 kcal</td><td><span class="ratio">12.6g</span></td></tr><tr><td><strong>Beef ribeye</strong></td><td>23–26g</td><td>280–350 kcal</td><td><span class="ratio">7.8g</span></td></tr><tr><td><strong>Beef brisket</strong></td><td>25–28g</td><td>250–330 kcal</td><td><span class="ratio">9.1g</span></td></tr><tr><td><strong>Lean minced beef</strong></td><td>25–27g</td><td>180–230 kcal</td><td><span class="ratio">12.7g</span></td></tr><tr><td><strong>Beef flank / skirt</strong></td><td>26–29g</td><td>190–240 kcal</td><td><span class="ratio">12.8g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Lamb / Mutton</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Lamb leg</strong></td><td>25–28g</td><td>200–260 kcal</td><td><span class="ratio">11.5g</span></td></tr><tr><td><strong>Lamb loin chop</strong></td><td>24–26g</td><td>250–320 kcal</td><td><span class="ratio">8.8g</span></td></tr><tr><td><strong>Lamb shoulder</strong></td><td>22–25g</td><td>280–350 kcal</td><td><span class="ratio">7.5g</span></td></tr><tr><td><strong>Mutton curry cuts</strong></td><td>20–25g</td><td>250–350 kcal</td><td><span class="ratio">7.5g</span></td></tr><tr><td><strong>Minced lamb/mutton</strong></td><td>18–25g</td><td>280–400 kcal</td><td><span class="ratio">6.3g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Duck</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein / 100g</th><th>Calories / 100g</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Duck breast, skin removed</strong></td><td>24–28g</td><td>160–220 kcal</td><td><span class="ratio">13.7g</span></td></tr><tr><td><strong>Duck leg</strong></td><td>22–25g</td><td>220–300 kcal</td><td><span class="ratio">9.0g</span></td></tr><tr><td><strong>Roast duck with skin</strong></td><td>18–23g</td><td>300–420 kcal</td><td><span class="ratio">5.7g</span></td></tr><tr><td><strong>Duck meat, skinless</strong></td><td>24–27g</td><td>180–240 kcal</td><td><span class="ratio">12.1g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Eggs and Dairy</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein</th><th>Calories</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Whole egg</strong></td><td>6–7g each</td><td>70–80 kcal each</td><td><span class="ratio">8.7g</span></td></tr><tr><td><strong>Egg whites</strong></td><td>10–11g / 100g</td><td>45–55 kcal / 100g</td><td><span class="ratio">21.0g</span></td></tr><tr><td><strong>Greek yoghurt</strong></td><td>8–12g / 100g</td><td>60–120 kcal / 100g</td><td><span class="ratio">11.1g</span></td></tr><tr><td><strong>Protein yoghurt</strong></td><td>10–15g / 100g</td><td>70–130 kcal / 100g</td><td><span class="ratio">12.5g</span></td></tr><tr><td><strong>Protein milk</strong></td><td>15–25g / bottle</td><td>120–220 kcal / bottle</td><td><span class="ratio">11.8g</span></td></tr><tr><td><strong>Cottage cheese</strong></td><td>11–13g / 100g</td><td>80–120 kcal / 100g</td><td><span class="ratio">12.0g</span></td></tr><tr><td><strong>Cheese</strong></td><td>18–30g / 100g</td><td>300–420 kcal / 100g</td><td><span class="ratio">6.7g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Soy, Tofu, Beans, Legumes</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein</th><th>Calories</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Firm tofu</strong></td><td>10–17g / 100g</td><td>90–150 kcal / 100g</td><td><span class="ratio">11.3g</span></td></tr><tr><td><strong>Tau kwa / extra-firm tofu</strong></td><td>15–20g / 100g</td><td>130–190 kcal / 100g</td><td><span class="ratio">10.9g</span></td></tr><tr><td><strong>Tempeh</strong></td><td>18–21g / 100g</td><td>190–230 kcal / 100g</td><td><span class="ratio">9.3g</span></td></tr><tr><td><strong>Edamame</strong></td><td>11–13g / 100g</td><td>120–140 kcal / 100g</td><td><span class="ratio">9.2g</span></td></tr><tr><td><strong>High-protein soy milk</strong></td><td>6–10g / 250ml</td><td>80–160 kcal / 250ml</td><td><span class="ratio">6.7g</span></td></tr><tr><td><strong>Lentils, cooked</strong></td><td>8–10g / 100g</td><td>110–130 kcal / 100g</td><td><span class="ratio">7.5g</span></td></tr><tr><td><strong>Chickpeas, cooked</strong></td><td>8–9g / 100g</td><td>150–170 kcal / 100g</td><td><span class="ratio">5.3g</span></td></tr><tr><td><strong>Black beans, cooked</strong></td><td>8–9g / 100g</td><td>130–150 kcal / 100g</td><td><span class="ratio">6.1g</span></td></tr><tr><td><strong>Kidney beans, cooked</strong></td><td>8–9g / 100g</td><td>120–150 kcal / 100g</td><td><span class="ratio">6.3g</span></td></tr><tr><td><strong>Peanuts</strong></td><td>25–26g / 100g</td><td>560–590 kcal / 100g</td><td><span class="ratio">4.4g</span></td></tr><tr><td><strong>Almonds</strong></td><td>20–22g / 100g</td><td>570–610 kcal / 100g</td><td><span class="ratio">3.6g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Convenient High-Protein Options</h3></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Food</th><th>Protein</th><th>Calories</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Canned tuna in water</strong></td><td>20–30g / can</td><td>100–160 kcal / can</td><td><span class="ratio">19.2g</span></td></tr><tr><td><strong>Canned tuna in oil</strong></td><td>20–30g / can</td><td>180–280 kcal / can</td><td><span class="ratio">10.9g</span></td></tr><tr><td><strong>Canned sardines</strong></td><td>20–25g / can</td><td>180–250 kcal / can</td><td><span class="ratio">10.5g</span></td></tr><tr><td><strong>Chicken breast slices</strong></td><td>20–30g / serving</td><td>120–220 kcal</td><td><span class="ratio">14.7g</span></td></tr><tr><td><strong>Protein shake</strong></td><td>20–30g / serving</td><td>100–180 kcal</td><td><span class="ratio">17.9g</span></td></tr><tr><td><strong>Protein yoghurt cup</strong></td><td>15–25g / tub</td><td>100–220 kcal</td><td><span class="ratio">12.5g</span></td></tr><tr><td><strong>Beef jerky</strong></td><td>25–35g / 100g</td><td>250–350 kcal</td><td><span class="ratio">10.0g</span></td></tr><tr><td><strong>Ready tofu pack</strong></td><td>15–25g / pack</td><td>150–300 kcal</td><td><span class="ratio">8.9g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <section class="diet-section">
+          <div class="diet-section-head"><h3>Best Protein-to-Calorie Winners</h3><p>Top protein-efficient choices from the full list, updated with Batang separated from Saba.</p></div>
+          <div class="diet-table-wrap">
+            <table class="diet-table">
+              <thead><tr><th>Rank</th><th>Food</th><th>Protein per 100 kcal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>1</strong></td><td>Cod</td><td><span class="ratio">23.0g</span></td></tr><tr><td><strong>2</strong></td><td>Prawn / Shrimp</td><td><span class="ratio">21.0g</span></td></tr><tr><td><strong>3</strong></td><td>Egg whites</td><td><span class="ratio">21.0g</span></td></tr><tr><td><strong>4</strong></td><td>Tuna</td><td><span class="ratio">20.4g</span></td></tr><tr><td><strong>5</strong></td><td>Grouper</td><td><span class="ratio">20.0g</span></td></tr><tr><td><strong>6</strong></td><td>Canned tuna in water</td><td><span class="ratio">19.2g</span></td></tr><tr><td><strong>7</strong></td><td>Chicken breast</td><td><span class="ratio">18.2g</span></td></tr><tr><td><strong>8</strong></td><td>Protein shake</td><td><span class="ratio">17.9g</span></td></tr><tr><td><strong>9</strong></td><td>Stingray</td><td><span class="ratio">17.9g</span></td></tr><tr><td><strong>10</strong></td><td>Pork tenderloin</td><td><span class="ratio">17.4g</span></td></tr><tr><td><strong>11</strong></td><td>Squid</td><td><span class="ratio">15.7g</span></td></tr><tr><td><strong>12</strong></td><td>Dory / Pangasius</td><td><span class="ratio">15.0g</span></td></tr><tr><td><strong>13</strong></td><td>Batang / Spanish mackerel</td><td><span class="ratio">13.9g</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div class="winner-grid">
+        <article class="winner-card"><h3>Lean winners</h3><p>For the most protein-efficient choices, go for cod, prawns, tuna, grouper, chicken breast, egg whites, pork tenderloin, stingray and lean white fish.</p></article>
+        <article class="winner-card"><h3>Still useful, richer</h3><p>For higher-calorie but still nutritious choices, think salmon, saba, sardines, tempeh, whole eggs and unagi. Useful foods, just not as protein-efficient.</p></article>
+      </div>
+    </section>
+
     <footer class="footer">
       <span>Beach Volleyball Training Hub · single-file HTML · GitHub Pages ready</span>
       <span>Data saves only in this browser via localStorage.</span>
@@ -523,7 +778,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite">Saved</div>
 
   <script>
-    const pages = ["home","track","plan","tournament","drills","warmups","workouts"];
+    const pages = ["home","track","plan","tournament","plyometrics","drills","warmups","workouts","diet"];
     const storageKey = "bv_training_hub_v1";
     const hydrationWords = {1:"Low",2:"Light",3:"Okay",4:"Good",5:"Excellent"};
     const todayISO = () => new Date().toISOString().slice(0,10);
@@ -677,8 +932,19 @@
         const iso = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
         const log = state.logs[iso];
         const classes = ["cal-day", log ? "logged" : "", iso === todayISO() ? "today" : ""].join(" ");
-        const count = log?.activities?.length || 0;
-        cells += `<button type="button" class="${classes}" data-load-date="${iso}" aria-label="${iso}${log ? ', logged' : ''}"><span class="cal-num">${d}</span>${log ? `<span class="cal-badge">${count}</span>` : `<span></span>`}</button>`;
+        const activities = log?.activities || [];
+        const count = activities.length || 0;
+        const markerConfig = [
+          {key:"strength", label:"Strength", test:a => /Strength A|Strength B/i.test(a)},
+          {key:"plyo", label:"Plyometrics", test:a => /Plyometrics Workout A|Plyometrics Workout B/i.test(a)},
+          {key:"ankle", label:"Ankle Prehab", test:a => /Ankle routine/i.test(a)},
+          {key:"shoulder", label:"Shoulder Prehab", test:a => /Shoulder \/ elbow routine/i.test(a)}
+        ];
+        const markers = log ? markerConfig
+          .filter(m => activities.some(m.test))
+          .map(m => `<span class="cal-mark ${m.key}" title="${m.label}"></span>`)
+          .join("") : "";
+        cells += `<button type="button" class="${classes}" data-load-date="${iso}" aria-label="${iso}${log ? ', logged' : ''}"><span class="cal-num">${d}</span>${log ? `<span class="cal-day-bottom"><span class="cal-badge">${count}</span><span class="cal-marks">${markers}</span></span>` : `<span></span>`}</button>`;
       }
       cal.innerHTML = heads + cells;
       cal.querySelectorAll("[data-load-date]").forEach(btn => btn.addEventListener("click", () => loadEntry(btn.dataset.loadDate)));
