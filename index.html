@@ -171,6 +171,11 @@
     .cal-day{min-height:74px;border:1px solid var(--line);border-radius:14px;background:rgba(255,253,246,.32);padding:8px;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
     .cal-day.blank{opacity:.28}
     .cal-day.logged{background:var(--lime-soft);border-color:rgba(13,13,13,.55)}
+    .cal-day.intensity-1{background:rgba(202,255,53,.10)}
+    .cal-day.intensity-2{background:rgba(202,255,53,.20)}
+    .cal-day.intensity-3{background:rgba(202,255,53,.34)}
+    .cal-day.intensity-4{background:rgba(202,255,53,.52)}
+    .cal-day.intensity-5{background:rgba(202,255,53,.74)}
     .cal-day.today{outline:2px solid var(--blue);outline-offset:1px}
     .cal-num{font-family:var(--mono);font-size:10px;color:var(--muted)}
     .cal-badge{display:inline-flex;width:18px;height:18px;border-radius:999px;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:9px}
@@ -392,6 +397,7 @@
             <span><i class="cal-mark plyo"></i>Plyometrics</span>
             <span><i class="cal-mark ankle"></i>Ankle Prehab</span>
             <span><i class="cal-mark shoulder"></i>Shoulder Prehab</span>
+            <span>Fill = session intensity</span>
           </div>
         </aside>
       </div>
@@ -931,7 +937,8 @@
       for(let d=1; d<=days; d++){
         const iso = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
         const log = state.logs[iso];
-        const classes = ["cal-day", log ? "logged" : "", iso === todayISO() ? "today" : ""].join(" ");
+        const intensity = log ? Math.max(1, Math.min(5, Number(log.rating || 3))) : "";
+        const classes = ["cal-day", log ? "logged" : "", log ? `intensity-${intensity}` : "", iso === todayISO() ? "today" : ""].join(" ");
         const activities = log?.activities || [];
         const count = activities.length || 0;
         const markerConfig = [
